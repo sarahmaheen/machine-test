@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import AdminModel from "../models/Adminmodels.js";
 
 import "../dbConnect.js";
-import AdminModel from "../models/Adminmodels.js";
+// import AdminModel from "../models/Adminmodels.js";
 async function insertAdmin(){
     try {
         let admin ={
@@ -18,3 +18,4 @@ async function insertAdmin(){
         console.error(error)
     }
 }
+

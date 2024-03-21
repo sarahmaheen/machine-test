@@ -1,8 +1,10 @@
 import express from 'express';
+import jwt from 'jsonwebtoken'
 import EmployeeModel from '../models/Usermodels.js';
+import { createEmployeeValidations,adminLoginValidations , errorMiddleware} from '../middleware/validators/index.js';
 import AdminModel from '../models/Adminmodels.js';
 const router = express.Router();
-router.post('/createEmployee', async(req,res)=>{
+router.post('/createEmployee',createEmployeeValidations(), errorMiddleware,async(req,res)=>{
     try {
         let{name,email,mobileNumber,designation,gender,course,imgUrl}=req.body;
         let findEmployee = await EmployeeModel.findOne({email})
@@ -22,11 +24,12 @@ router.post('/createEmployee', async(req,res)=>{
         await employeeDetails.save();
         res.status(200).json({success:'Employee registered successfully'})
     } catch (error) {
+        console.error(error)
         res.status(500).json({error:'Internal server error'})
     }
 })
 
-router.post('/login',async(req,res)=>{
+router.post('/login',adminLoginValidations(), errorMiddleware, async(req,res)=>{
     try {
        let{
         email,
@@ -42,9 +45,10 @@ router.post('/login',async(req,res)=>{
         }
         let privatekey = 'machineTest';
         let token = jwt.sign(payload,privatekey,{expiresIn :'1d'})
-        res.status(200).json({success:'Admin logged in successfully'})
+        res.status(200).json({success:'Admin logged in successfully',token})
        }
     } catch (error) {
+        console.error(error)
         res.status(500).json({error:'Internal server error'})
     }
 })
