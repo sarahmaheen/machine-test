@@ -53,4 +53,37 @@ router.post('/login',adminLoginValidations(), errorMiddleware, async(req,res)=>{
     }
 })
 
+
+router.put('/edit/:id',async(req,res)=>{
+    try {
+        let employeeId = req.params.id
+        let find = await EmployeeModel.findById(employeeId)
+        if(!find){
+            res.status(404).json({error:'document not found'})
+        }
+        let updateData =req.body
+        // await EmployeeModel.updateOne({_id:employeeId}),
+        // {$set:updateData}
+        await EmployeeModel.updateOne({ _id: employeeId }, { $set: updateData })
+
+        let allData = await EmployeeModel.find({})
+        res.status(200).json({success:'profile updated successfully',allData})
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({error:'Internal server error!'})
+    }
+})
+
+router.delete('/delete/:id',async(req,res)=>{
+    try {
+        let employeeId=req.params.id
+        await EmployeeModel.deleteOne({_id:employeeId})
+        let allData = await EmployeeModel.find({})
+
+        res.status(200).json({success:'profile deleted successfully',allData})
+    } catch (error) {
+        res.status(500).json({error:'Internal server error'})
+    }
+})
 export default router
