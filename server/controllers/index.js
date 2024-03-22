@@ -4,12 +4,13 @@ import EmployeeModel from '../models/Usermodels.js';
 import { createEmployeeValidations,adminLoginValidations , errorMiddleware} from '../middleware/validators/index.js';
 import AdminModel from '../models/Adminmodels.js';
 const router = express.Router();
-router.post('/createEmployee',createEmployeeValidations(), errorMiddleware,async(req,res)=>{
+router.post('/createEmployee',async(req,res)=>{
     try {
         let{name,email,mobileNumber,designation,gender,course,imgUrl}=req.body;
         let findEmployee = await EmployeeModel.findOne({email})
         if(findEmployee){
             res.status(400).json({error:'Employee email already exists!'})
+            return
         }
         let employeeData = {
             name,
@@ -35,9 +36,10 @@ router.post('/login',adminLoginValidations(), errorMiddleware, async(req,res)=>{
         email,
         password
        } = req.body
-       let findAdmin = await AdminModel.find({email,password})
+       let findAdmin = await AdminModel.findOne({email,password})
        if(!findAdmin){
-        return res.status(404).json({error:'Email not found'})
+           res.status(404).json({error:'Email not found'})
+        return 
        }else{
         let payload={
             email:req.body.email,
@@ -80,10 +82,39 @@ router.delete('/delete/:id',async(req,res)=>{
         let employeeId=req.params.id
         await EmployeeModel.deleteOne({_id:employeeId})
         let allData = await EmployeeModel.find({})
-
+        
         res.status(200).json({success:'profile deleted successfully',allData})
     } catch (error) {
         res.status(500).json({error:'Internal server error'})
     }
 })
+
+
+router.get('/employeeList',async(req,res)=>{
+    try {
+        let allData = await EmployeeModel.find({})
+        res.status(200).json({success:'Employees listed successfully',allData})
+    } catch (error) {
+        res.status(500).json({error:'Internal server error'})
+    }
+})
+
+router.get('/employee/:id', async (req, res) => {
+    try {
+        const employeeId = req.params.id;
+        const employee = await EmployeeModel.findById(employeeId);
+        if (!employee) {
+            return res.status(404).json({ error: 'Employee not found' });
+        }
+        res.status(200).json(employee);
+    } catch (error) {
+        console.error('Error fetching employee:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
+
+
 export default router

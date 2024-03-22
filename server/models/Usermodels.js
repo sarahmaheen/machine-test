@@ -32,13 +32,17 @@ let employeeSchema=new mongoose.Schema({
         type:String,
         default:'Admin'
     },
-    isVerified:{
-        email:{
-            type:Boolean,
-            default:false
-        }
+    // isVerified:{
+    //     email:{
+    //         type:Boolean,
+    //         default:false
+    //     }
+    // }
+    isVerified: {
+        type: Boolean, // Corrected the type to boolean
+        default: false // Set default value directly for boolean type
     }
-},{timestamp:true})
+},{timestamps:true})
 
 const EmployeeModel= mongoose.model('Employee',employeeSchema)
 export default EmployeeModel
