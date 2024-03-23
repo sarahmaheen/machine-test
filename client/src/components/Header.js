@@ -5,25 +5,21 @@ function Header() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Remove token from local storage or cookies
     localStorage.removeItem('token');
-    // Redirect to login page
     navigate('/');
   };
 
   const handleEmployeeList = () => {
-    // Redirect to employee list page
     navigate('/employeeList');
   };
 
   const handleCreateEmployee = () => {
-    // Redirect to create employee page
     navigate('/createEmployee');
   };
 
   return (
-    <header>
-      <h1>Employee Datastorage App</h1>
+    <header className="header-container">
+      <h1>Employee Data Storage App</h1>
       <h4>Login To Perform</h4>
       <nav>
         <button onClick={handleEmployeeList}>Employee List</button>
