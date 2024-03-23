@@ -1,12 +1,15 @@
 import mongoose from "mongoose";
+import config from 'config';
+
 async function dbConnect(){
     try {
-        await mongoose.connect('mongodb+srv://lms:lms-2023@cluster0.7cmowhy.mongodb.net/machineTest')
+        const mongodbUrl=config.get('mongodbUrl')
+        await mongoose.connect(mongodbUrl)
         console.log('Mongo DB connected successfully')
     } catch (error) {
         console.error("connection failed!!")
     }
 }
 
-// export default dbConnect
+
 dbConnect();

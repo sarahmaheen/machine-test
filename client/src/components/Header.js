@@ -8,7 +8,7 @@ function Header() {
     // Remove token from local storage or cookies
     localStorage.removeItem('token');
     // Redirect to login page
-    navigate('/login');
+    navigate('/');
   };
 
   const handleEmployeeList = () => {
@@ -23,7 +23,8 @@ function Header() {
 
   return (
     <header>
-      <h1>My Application</h1>
+      <h1>Employee Datastorage App</h1>
+      <h4>Login To Perform</h4>
       <nav>
         <button onClick={handleEmployeeList}>Employee List</button>
         <button onClick={handleCreateEmployee}>Create Employee</button>

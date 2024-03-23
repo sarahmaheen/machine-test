@@ -1,17 +1,17 @@
-
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
-function ProtectedRoute({ element, ...props }) {
+const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
 
-  if (!token) {
-    // Redirect to login page if token is not present
+  // In case if the token is not found then redirecting to login page
+  if (!token){
     return <Navigate to="/" />;
   }
 
-  // Render the provided element if token is present
-  return <Route {...props} element={element} />;
-}
+ // redirecting to protected (children) routes
+  return children;
+};
 
 export default ProtectedRoute;
+

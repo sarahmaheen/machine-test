@@ -14,6 +14,7 @@ function CreateEmployee() {
     setImgFile(e.target.files[0]);
   };
 
+  //making axios call to cloudinary for storing the image data
   const uploadImageToCloudinary = async () => {
     if (!imgFile) {
       console.log("Image file is required.");
@@ -35,7 +36,7 @@ function CreateEmployee() {
 
 
 
-
+// sending data through axios call to createEmplyee route
 const handleSubmit = async () => {
     try {
       const imgUrl = await uploadImageToCloudinary();
@@ -50,7 +51,7 @@ const handleSubmit = async () => {
         imgUrl: imgUrl
       };
       console.log(formData)
-      // Reorder the properties according to backend's expected order
+      
       
   
       const response = await axios.post('/api/admin/createEmployee', formData);

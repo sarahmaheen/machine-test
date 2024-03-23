@@ -7,6 +7,7 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
+  //spread operator for setting the form data
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -17,9 +18,9 @@ function Login() {
       const response = await axios.post('/api/admin/login', formData);
       console.log(response.data.success)
       const { token } = response.data;
-      // Save token to local storage or cookies
+      // Save token to local storage in headers
       localStorage.setItem('token', token);
-      // Redirect to dashboard
+      // Redirecting  to dashboard
       navigate('/dashboard');
     } catch (error) {
       console.error('Error logging in:', error.response.data.error);

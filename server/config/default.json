@@ -1,0 +1,5 @@
+{
+    "port": 3005,
+  "privateKey": "Employee Datastorage App",
+  "mongodbUrl":"mongodb+srv://lms:lms-2023@cluster0.7cmowhy.mongodb.net/machineTest"
+}

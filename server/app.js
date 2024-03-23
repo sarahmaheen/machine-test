@@ -1,10 +1,15 @@
 import express from 'express';
+import config from 'config';
+
 // import cors from 'cors';
 
 import adminRoutes from './controllers/index.js'
 import './dbConnect.js'
 
-const port=3005;
+
+const port = config.get('port');
+
+console.log(port)
 const app=express();
 // app.use(cors())
 app.use(express.json());
