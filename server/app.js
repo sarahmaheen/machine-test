@@ -14,7 +14,7 @@ const app=express();
 // app.use(cors())
 
 app.use(cors({
-    origin: 'https://elegant-chimera-df8459.netlify.app', // Replace this with your frontend URL
+    origin: 'https://employee-check-app.netlify.app/', // Replace this with your frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Add any other methods you need
     allowedHeaders: ['Content-Type', 'Authorization'] // Add any other headers you need
   }));
