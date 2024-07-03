@@ -1,7 +1,7 @@
 import express from 'express';
 import config from 'config';
 
-// import cors from 'cors';
+import cors from 'cors';
 
 import adminRoutes from './controllers/index.js'
 import './dbConnect.js'
