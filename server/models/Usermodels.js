@@ -31,7 +31,7 @@ let employeeSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      default: "Admin",
+      default: "employee",
     },
 
     isVerified: {

@@ -2,7 +2,14 @@ import { body, validationResult } from "express-validator";
 function createEmployeeValidations() {
   return [
     body("name", "name is required").notEmpty().isLength({ min: 2, max: 30 }),
-    body("email", "email is required").isEmail(),
+    body("email", "email is required").isEmail()
+    .custom(value => {
+      // Custom validation to check if email contains '@' and '.'
+      if (!value.includes('@') || !value.includes('.')) {
+        throw new Error('Invalid email format');
+      }
+      return true;
+    }),
     body("mobileNumber", "mobileNumber is required").isMobilePhone(),
     body("designation", "designation is required")
       .notEmpty()
